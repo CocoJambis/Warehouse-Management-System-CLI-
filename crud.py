@@ -34,6 +34,7 @@ def add_to_magazzino(codice:str, nome:str, quantità:int) -> None:
 def find_name_by_code(codice:str) -> str:
     item = session.query(Item).filter_by(code=codice).one_or_none()
     return item.name
+
 #Articolo in magazzino? True/False
 def item_in_magazzino(codice:str) -> bool:
     item= session.query(Magazzino).filter_by(code=codice).one_or_none()
@@ -41,6 +42,7 @@ def item_in_magazzino(codice:str) -> bool:
         return True
     else:
         return False
+    
 #Oggetto singolo in magazzino -> Oggetto
 def single_item(codice:str) -> object:
     item = session.query(Magazzino).filter_by(code=codice).one_or_none()
