@@ -9,7 +9,8 @@ def main() -> None:
               '2. Aggiungi articolo al magazzino\n'
               '3. Togli quantità\n'
               '4. Aggiungi quantità\n'
-              '5. Elimina articoli con giacenza 0')
+              '5. Elimina articoli con giacenza 0\n')
+                        
 
         choice = input('>')
 
