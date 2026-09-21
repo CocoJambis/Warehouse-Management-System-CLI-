@@ -65,7 +65,7 @@ def giacenza_zero() -> list[()]:
 
 #Elimina tutti gli articoli in Magazzino con giacenza 0
 def delete_zero() -> None:
-    items = session.query(Magazzino).filter(Magazzino.quantity <= 0).delete()
+    session.query(Magazzino).filter(Magazzino.quantity <= 0).delete()
     session.commit()
     print('Eliminati con successo!')
 
