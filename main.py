@@ -1,5 +1,5 @@
 from crud import *
-#Hello World
+
 def main() -> None:
 
     while True:
