@@ -12,6 +12,12 @@ def all_items() -> object:
     items = session.query(Item).all()
     return items
 
+#Elimina item in database
+def delete_item_database(codice:str) -> None:
+    session.query(Item).filter_by(code=codice).delete()
+    session.commit()
+    print(f'{codice} eliminato con successo dal database')
+
 #Il codice è nel database? True/False
 def code_in_database(codice:int) -> bool:
     trovato = None

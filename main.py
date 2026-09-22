@@ -9,7 +9,8 @@ def main() -> None:
               '2. Aggiungi articolo al magazzino\n'
               '3. Togli quantità\n'
               '4. Aggiungi quantità\n'
-              '5. Elimina articoli con giacenza 0\n')
+              '5. Elimina articoli con giacenza 0\n'
+              '6. Elimina articolo da database\n')
                         
 
         choice = input('>')
@@ -71,7 +72,7 @@ def main() -> None:
 
                 try:
                     print('Codice prodotto')
-                    codice = str(input('>'))
+                    codice = str(input('>')).upper()
 
                     if item_in_magazzino(codice):
                         print('Inserisci la quantità da aggiungere')
@@ -97,6 +98,29 @@ def main() -> None:
                             print('')
                         case _:
                             print('Scelta non valida')
+
+                except Exception as e:
+                    print(e)
+
+            case '6':
+
+                try:
+                    print('Codice prodotto')
+                    codice = str(input('>')).upper()
+
+                    if code_in_database(codice):
+                        print(f'Sei sicuro di voler eliminare definitivamente il prodotto con codice : {codice} dal database? y/n')
+                        choice = str(input('>'))
+
+                        match(choice):
+                            case 'y':
+                                delete_item_database(codice)
+                            case 'n':
+                                print('')
+                            case _:
+                                print('Scelta non valida')
+                    else:
+                        print(f'{codice} non trovato nel database')
 
                 except Exception as e:
                     print(e)
