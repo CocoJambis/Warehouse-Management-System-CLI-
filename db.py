@@ -6,7 +6,13 @@ Base = declarative_base()
 Session = sessionmaker(bind=engine)
 session = Session()
 
-class Magazzino(Base):
+class BaseModel(Base):
+    __abstract__ = True
+    __allow_unmapped__ = True
+
+    id = Column(Integer, primary_key=True)
+
+class Magazzino(BaseModel):
     __tablename__ = 'magazzino'
 
     id = Column(Integer, primary_key=True)
@@ -15,7 +21,7 @@ class Magazzino(Base):
     quantity = Column(Integer)
 
 
-class Item(Base):
+class Item(BaseModel):
     __tablename__ = 'items'
 
     id = Column(Integer, primary_key=True)

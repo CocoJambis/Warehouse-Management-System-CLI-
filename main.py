@@ -1,4 +1,5 @@
 from crud import *
+import time
 
 def main() -> None:
 
@@ -10,7 +11,8 @@ def main() -> None:
               '3. Togli quantità\n'
               '4. Aggiungi quantità\n'
               '5. Elimina articoli con giacenza 0\n'
-              '6. Elimina articolo da database\n')
+              '6. Elimina articolo da database\n'
+              '7. Exit\n')
                         
 
         choice = input('>')
@@ -26,6 +28,8 @@ def main() -> None:
 
                     if code_in_database(codice):
                         print(f'{codice} già presente nel database')
+                    elif name_in_database(nome):
+                        print(f'{nome} già prendente nel database')
                     else:
                         add_item(codice, nome)
 
@@ -124,6 +128,11 @@ def main() -> None:
 
                 except Exception as e:
                     print(e)
+
+            case '7':
+                print('Exiting...')
+                time.sleep(2)
+                break
 
             case _:
                 print('Opzione non valida..')

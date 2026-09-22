@@ -28,6 +28,12 @@ def code_in_database(codice:int) -> bool:
             return True
     if trovato != True:
         return False
+    
+#Il nome è dell'articolo è nel database? True/False
+def name_in_database(nome:str) -> bool:
+    item = session.query(Item).filter_by(name=nome).one_or_none()
+    return True if item else False    
+
 
 #Aggiunge articoli a Magazzino
 def add_to_magazzino(codice:str, nome:str, quantità:int) -> None:
