@@ -5,13 +5,14 @@ def main() -> None:
 
     while True:
 
-        print('Scegli cosa fare :\n'
+        print('\n        ⚙️---DATABASE---⚙️:\n'
               '1. Aggiungi articolo al database\n'
-              '2. Aggiungi articolo al magazzino\n'
+              '2. Elimina articolo da database\n\n'
+              '       📦---MAGAZZINO---📦\n'
               '3. Togli quantità\n'
               '4. Aggiungi quantità\n'
               '5. Elimina articoli con giacenza 0\n'
-              '6. Elimina articolo da database\n'
+              '6. Aggiungi articolo al magazzino\n'
               '7. Exit\n')
                         
 
@@ -36,7 +37,7 @@ def main() -> None:
                 except Exception as e:
                     print(e)
 
-            case '2':
+            case '6':
 
                 try:
                     print('Codice prodotto :')
@@ -106,7 +107,7 @@ def main() -> None:
                 except Exception as e:
                     print(e)
 
-            case '6':
+            case '2':
 
                 try:
                     print('Codice prodotto')
