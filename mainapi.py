@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db import get_db
-from models import Magazzino, Item, ItemCreate, MagazzinoCreate, ItemResponse, MagazzinoResponse
+from models import Magazzino, Item, ItemCreate, MagazzinoCreate, ItemResponse, MagazzinoResponse, MagazzinoUpdate
 
 app = FastAPI()
 
@@ -71,5 +71,29 @@ def add_magazzino(new_item: MagazzinoCreate, db:Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=404, detail='Item non presente nel database ufficiale')
    
+#Visualizza oggetto tramite codice presente in Magazzino
+@app.get('/magazzino/{item_code}', response_model=MagazzinoResponse)
+def single_item_magazzino(item_code:str, db:Session = Depends(get_db)):
+
+    item = db.query(Magazzino).filter(Magazzino.code == item_code.upper()).one_or_none()
+
+    if item:
+        return item
+    else:
+        raise HTTPException(status_code=404, detail='Item non presente in magazzino')
+
+#Aggiungi quantità al magazzino in base al codice articolo
+@app.put('/magazzino/{item_code}', response_model=MagazzinoResponse)
+def update_item_magazzino(item:MagazzinoUpdate, item_code:str, db:Session = Depends(get_db)):
+
+    item_magazzino = db.query(Magazzino).filter(Magazzino.code == item_code.upper()).one_or_none()
+
+    if not item_magazzino:
+        raise HTTPException(status_code=404, detail='Item non presente in magazzino')
     
-        
+    item_magazzino.quantity += item.quantity
+
+    db.commit()
+    db.refresh(item_magazzino)
+    return item_magazzino
+    

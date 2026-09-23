@@ -63,3 +63,6 @@ class MagazzinoResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class MagazzinoUpdate(BaseModel):
+    quantity:int
