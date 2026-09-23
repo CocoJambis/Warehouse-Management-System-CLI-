@@ -48,5 +48,28 @@ def single_item(item_code:str, db:Session = Depends(get_db)):
         return item
     else:
         raise HTTPException(status_code=404, detail='Item non esistente nel database')
+    
+#Tutto il contenuto del Magazzino
+@app.get('/magazzino/', response_model=list[MagazzinoResponse])
+def all_magazzino(db:Session = Depends(get_db)):
+    return db.query(Magazzino).all()
 
+#Aggiunge item al al Magazzino se il codice prodotto è presente nel database ufficiale!
+@app.post('/magazzino/', response_model=MagazzinoResponse)
+def add_magazzino(new_item: MagazzinoCreate, db:Session = Depends(get_db)):
 
+    item_db = db.query(Item).filter(Item.code == new_item.code.upper()).first()
+
+    if db.query(Magazzino).filter(Magazzino.code == new_item.code.upper()).first():
+        raise HTTPException(status_code=404, detail='Item già esistente nel magazzino')
+    elif item_db:
+        item = Magazzino(code = item_db.code, name = item_db.name, quantity = new_item.quantity)
+        db.add(item)
+        db.commit()
+        db.refresh(item)
+        return item
+    else:
+        raise HTTPException(status_code=404, detail='Item non presente nel database ufficiale')
+   
+    
+        
