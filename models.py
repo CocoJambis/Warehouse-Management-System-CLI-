@@ -42,7 +42,7 @@ class ItemResponse(BaseModel):
     id:int
     code:str
     name:str
-    
+
     class Config:
         from_attributes = True
 
@@ -50,7 +50,6 @@ class ItemResponse(BaseModel):
 #Pydantic models Magazzino
 class MagazzinoBase(BaseModel):
     code:str
-    name:str
     quantity:int
 
 class MagazzinoCreate(MagazzinoBase):
@@ -64,3 +63,6 @@ class MagazzinoResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class MagazzinoUpdate(BaseModel):
+    quantity:int
