@@ -24,4 +24,4 @@ A comprehensive Warehouse Management System in Python featuring a dual implement
 ---
 
 ## 💻 How to Run
-Clone the repo and install dependencies (`fastapi`, `uvicorn`, `sqlalchemy`, `pydantic`), then run either the CLI (`cd cli_version && python main.py`) or the API (`cd api_version && uvicorn main:app --reload`).
+Clone the repo and install dependencies (`fastapi`, `uvicorn`, `sqlalchemy`, `pydantic`, `psycopg2`), then run either the CLI (`cd cli_version && python main.py`) or the API (`cd api_version && uvicorn mainapi:app --reload`).
