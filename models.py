@@ -26,7 +26,7 @@ class Item(BaseModello):
 
     id = Column(Integer, primary_key=True)
     code = Column(String, nullable=False, unique=True)
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
 
 Base.metadata.create_all(engine)
 
@@ -36,13 +36,13 @@ class ItemBase(BaseModel):
     name:str
 
 class ItemCreate(ItemBase):
-    id:int
     pass
 
 class ItemResponse(BaseModel):
     id:int
     code:str
     name:str
+    
     class Config:
         from_attributes = True
 
@@ -54,7 +54,6 @@ class MagazzinoBase(BaseModel):
     quantity:int
 
 class MagazzinoCreate(MagazzinoBase):
-    id:int
     pass
 
 class MagazzinoResponse(BaseModel):
