@@ -48,3 +48,5 @@ def single_item(item_code:str, db:Session = Depends(get_db)):
         return item
     else:
         raise HTTPException(status_code=404, detail='Item non esistente nel database')
+
+
