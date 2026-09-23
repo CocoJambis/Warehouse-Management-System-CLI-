@@ -1,31 +1,14 @@
-from sqlalchemy import Column, Integer, String, create_engine, ForeignKey
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy import  create_engine
+from sqlalchemy.orm import  sessionmaker
 
 engine = create_engine('sqlite:///database.db')
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
-session = Session()
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class BaseModel(Base):
-    __abstract__ = True
-    __allow_unmapped__ = True
+#Connessione al Database
+def get_db():
+    db = SessionLocal()
 
-    id = Column(Integer, primary_key=True)
-
-class Magazzino(BaseModel):
-    __tablename__ = 'magazzino'
-
-    id = Column(Integer, primary_key=True)
-    code = Column(String, nullable=False, unique=True)
-    name = Column(String, nullable=False)
-    quantity = Column(Integer)
-
-
-class Item(BaseModel):
-    __tablename__ = 'items'
-
-    id = Column(Integer, primary_key=True)
-    code = Column(String, nullable=False, unique=True)
-    name = Column(String, nullable=False)
-
-Base.metadata.create_all(engine)
+    try:
+        yield db
+    finally:
+        db.close()
