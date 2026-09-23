@@ -1,6 +1,6 @@
 # Dual-Interface Warehouse Management System
 
-A comprehensive Warehouse Management System in Python featuring a dual implementation: a **Web API (FastAPI)** and a local **CLI**, powered by **SQLAlchemy ORM** and **SQLite**.
+A comprehensive Warehouse Management System in Python featuring a dual implementation: a **Web API (FastAPI)** and a local **CLI**, powered by **SQLAlchemy ORM** and **postgreSQL**.
 
 ---
 
