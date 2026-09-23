@@ -114,5 +114,16 @@ def update_item_magazzino(item:MagazzinoUpdate, item_code:str, db:Session = Depe
     else:
         raise HTTPException(status_code=404, detail=f'Impossibile sottrarre la quantità inserita, quantità disponibile : {item_magazzino.quantity}')
     
+#Elimina item in Magazzino in base al codice    
+@app.delete('/magazzino/{item_code}')
+def delete_item_magazzino(item_code:str, db:Session = Depends(get_db)):
 
+    item = db.query(Magazzino).filter(Magazzino.code == item_code.upper()).one_or_none()
+
+    if item:
+        db.delete(item)
+        db.commit()
+        return f'{item.code} eliminato da Magazzino!'
+    else:
+        raise HTTPException(status_code=404, detail=f'{item_code} non presente in magazzino')
     
