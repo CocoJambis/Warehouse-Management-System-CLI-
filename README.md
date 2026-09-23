@@ -49,8 +49,8 @@ The project strictly adheres to the **Separation of Concerns (SoC)** principle, 
 
 bash
 
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git
-cd YOUR_REPOSITORY_NAME
+git clone https://github.com/CocoJambis/Warehouse-Management-System-CLI-API.git
+cd Warehouse-Management-System-CLI-API
 
 Usa il codice con cautela.
 2. Install dependencies: 
