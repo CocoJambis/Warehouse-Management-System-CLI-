@@ -83,17 +83,36 @@ def single_item_magazzino(item_code:str, db:Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail='Item non presente in magazzino')
 
 #Aggiungi quantità al magazzino in base al codice articolo
-@app.put('/magazzino/{item_code}', response_model=MagazzinoResponse)
+@app.put('/magazzino/{item_code}/add', response_model=MagazzinoResponse)
 def update_item_magazzino(item:MagazzinoUpdate, item_code:str, db:Session = Depends(get_db)):
 
     item_magazzino = db.query(Magazzino).filter(Magazzino.code == item_code.upper()).one_or_none()
 
     if not item_magazzino:
-        raise HTTPException(status_code=404, detail='Item non presente in magazzino')
+        raise HTTPException(status_code=404, detail=f'{item_code} non presente in magazzino')
     
     item_magazzino.quantity += item.quantity
 
     db.commit()
     db.refresh(item_magazzino)
     return item_magazzino
+
+#Togli quantità al Magazzino in base al codice prodotto
+@app.put('/magazzino/{item_code}/sottr', response_model=MagazzinoResponse)
+def update_item_magazzino(item:MagazzinoUpdate, item_code:str, db:Session = Depends(get_db)):
+
+    item_magazzino = db.query(Magazzino).filter(Magazzino.code == item_code.upper()).one_or_none()
+
+    if not item_magazzino:
+        raise HTTPException(status_code=404, detail=f'{item_code}non presente in magazzino')
+    
+    if item.quantity <= item_magazzino.quantity:
+        item_magazzino.quantity -= item.quantity
+        db.commit()
+        db.refresh(item_magazzino)
+        return item_magazzino
+    else:
+        raise HTTPException(status_code=404, detail=f'Impossibile sottrarre la quantità inserita, quantità disponibile : {item_magazzino.quantity}')
+    
+
     
