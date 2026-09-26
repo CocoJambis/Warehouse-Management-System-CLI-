@@ -1,7 +1,10 @@
 from sqlalchemy import  create_engine
 from sqlalchemy.orm import  sessionmaker
+import os
 
-engine = create_engine('postgresql://postgres:1312@localhost:5432/Magazzino')
+DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://postgres:1312@localhost:5432/Magazzino')
+
+engine = create_engine(DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

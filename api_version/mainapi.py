@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from db import get_db
 from models import Magazzino, Item, ItemCreate, MagazzinoCreate, ItemResponse, MagazzinoResponse, MagazzinoUpdate
+import uvicorn
+
 
 app = FastAPI()
 
@@ -127,3 +129,8 @@ def delete_item_magazzino(item_code:str, db:Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=404, detail=f'{item_code} non presente in magazzino')
     
+
+
+if __name__ == '__main__':
+    
+    uvicorn.run(app, host='0.0.0.0', port=5000)
